@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Vertical Button Page</title>
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      font-family: Arial, sans-serif;
+      display: flex;
+      flex-direction: column;
+      min-height: 100vh;
+    }
+
+    header {
+      color: white;
+      padding: 1rem;
+      text-align: center;
+      text-shadow:
+        -1px -1px 0 black,
+        1px -1px 0 black,
+        -1px  1px 0 black,
+        1px  1px 0 black;
+      -webkit-text-stroke: 1px solid black;
+    }
+
+    main {
+      flex: 1;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 2rem;
+    }
+
+    #bg-video {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100vw;
+      height: 100vh;
+      object-fit: cover;
+      z-index: -1; /* Send video to the background */
+      opacity: 1; /* Optional: darken for contrast */
+    }
+
+    .button-container {
+      display: flex;
+      flex-direction: column; /* Stack buttons vertically */
+      gap: 1rem;
+      align-items: center;
+    }
+	
+    a {
+      color: Black;
+      text-decoration: none;
+      border-radius: 5px;
+      font-size: 1.1rem;
+      transition: background 0.3s ease;
+    }
+
+    a:hover {
+      background: #c00404;
+    }
+
+    button {
+      margin-top: 20px;
+      width: 100%;
+      padding: 10px;
+      background: linear-gradient(to right, #3498db, #10b981);
+      color: #000;
+      border: none;
+      border-radius: 5px;
+      font-size: 16px;
+      cursor: pointer;
+    }
+    button:hover {
+      transform: scale(1.05);
+    }
+
+  </style>
+</head>
+<body>
+
+  <header>
+    <h1>Negative Generator</h1>
+  </header>
+
+  <main>
+	<video autoplay muted loop playsinline id="bg-video">
+  		<source src="bg.mp4" type="video/mp4">
+	</video>
+
+    <div class="button">
+	<button onclick="window.location.href='PMTA_Config.html'">PMTA Configuration</button>
+	<button onclick="window.location.href='Random_Chunk_gen.html'">Specified Length Chunk Generator</button>
+	<button onclick="window.location.href='Random Length.html'">Random Length Chunk Generator</button>
+    </div>
+
+  </main>
+
+
+</body>
+</html>
