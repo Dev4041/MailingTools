@@ -16,26 +16,34 @@
       display: flex;
       flex-direction: column;
       min-height: 100vh;
+      background-image: url('back.jpg');
     }
 
-    header {
-      color: white;
-      padding: 1rem;
+    .gradient-text {
+      font-size: 2.5rem;
+      font-weight: bold;
       text-align: center;
-      text-shadow:
-        -1px -1px 0 black,
-        1px -1px 0 black,
-        -1px  1px 0 black,
-        1px  1px 0 black;
-      -webkit-text-stroke: 1px solid black;
+      padding-top: 200px;
+      background: linear-gradient(to right, #22d3ee, #6366f1);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+    }
+
+    p {
+      color: white;
+      font-size: 4rem;
+      padding-top: 300px;
+      padding-bottom: 0px;
+      text-align: center;
+      
     }
 
     main {
-      flex: 1;
+      flex: 0.3;
       display: flex;
       align-items: center;
       justify-content: center;
-      padding: 2rem;
+      padding: 0rem;
     }
 
     #bg-video {
@@ -47,17 +55,10 @@
       object-fit: cover;
       z-index: -1; /* Send video to the background */
       opacity: 1; /* Optional: darken for contrast */
-    }
-
-    .button-container {
-      display: flex;
-      flex-direction: column; /* Stack buttons vertically */
-      gap: 1rem;
-      align-items: center;
-    }
+    }	
 	
     a {
-      color: Black;
+      color: white;
       text-decoration: none;
       border-radius: 5px;
       font-size: 1.1rem;
@@ -72,11 +73,11 @@
       margin-top: 20px;
       width: 100%;
       padding: 10px;
-      background: linear-gradient(to right, #3498db, #10b981);
-      color: #000;
+      background: linear-gradient(to right, #97C93C, #10b981);
+      color: white;
       border: none;
       border-radius: 5px;
-      font-size: 16px;
+      font-size: 20px;
       cursor: pointer;
     }
     button:hover {
@@ -87,11 +88,11 @@
 </head>
 <body>
 
-  <header>
-    <h1>Negative Generator</h1>
-  </header>
+    <p class="gradient-text">Negative Generator</p>
+
 
   <main>
+
 	<video autoplay muted loop playsinline id="bg-video">
   		<source src="bg.mp4" type="video/mp4">
 	</video>
