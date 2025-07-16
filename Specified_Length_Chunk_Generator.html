@@ -43,7 +43,7 @@
       background: transparent;
       padding: 2rem;
       border-radius: 1rem;
-      box-shadow: 0 8px 20px rgba(0, 0, 0, 0.05);
+      box-shadow: 0 5px 10px black;
       transition: transform 0.2s ease;
     }
 
@@ -52,8 +52,12 @@
       background: transparent;
       padding: 2rem;
       border-radius: 1rem;
-      box-shadow: 0 8px 20px rgba(0, 0, 0, 0.05);
+      box-shadow: 0 5px 10px black;
       transition: transform 0.2s ease;
+    }
+    .left:hover,
+    .right:hover {
+      transform: translateY(-2px);
     }
 
     label {
@@ -69,6 +73,7 @@
       margin-top: 5px;
       box-sizing: border-box;
       border-radius: 6px;
+      border: 1px solid black;
     }
 
     textarea {
@@ -104,6 +109,10 @@
       resize: vertical, horizontal;
       background-color: #fff;
     }
+    @media (max-width: 768px) {
+      .container {
+        flex-direction: column;
+      }
   </style>
 </head>
 <body>
