@@ -30,16 +30,22 @@
     .form-container {
       width: 25%;
       background: transparent;
-      padding: 20px;
-      box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-      border-radius: 5px;
+      padding: 2rem;
+      border-radius: 1rem;
+      box-shadow: 0 5px 10px black;
+      transition: transform 0.2s ease;
     }
     .output-container {
       width: 72%;
       background: transparent;
       padding: 20px;
-      box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-      border-radius: 5px;
+      border-radius: 1rem;
+      box-shadow: 0 5px 10px black;
+      transition: transform 0.2s ease;
+    }
+    .form-container:hover,
+    .output-container:hover {
+      transform: translateY(-2px);
     }
     h1 {
       text-align: center;
@@ -62,6 +68,7 @@
       margin-top: 5px;
       box-sizing: border-box;
       border-radius: 10px;
+      border: 1px solid black;
     }
     button {
       margin-top: 20px;
@@ -80,13 +87,17 @@
     }
     textarea {
       width: 100%;
-      height: 500px;
+      height: 700px;
       box-sizing: border-box;
       font-family: monospace;
       padding: 10px;
       border-radius: 5px;
-      border: 2px solid black;
+      border: 1px solid black;
     }
+    @media (max-width: 768px) {
+      .container {
+        flex-direction: column;
+      }
   </style>
 </head>
 <body>
