@@ -9,7 +9,7 @@
       font-family: Arial, sans-serif;
       margin: 0;
       padding: 0;
-      background-color: #f4f4f4;
+      background-image: url('back.jpg');
     }
     #bg-video {
       position: fixed;
@@ -25,13 +25,10 @@
     h1 {
       text-align: center;
       color: white;
-      margin-bottom: 2rem;
-      text-shadow:
-        -1px -1px 0 black,
-        1px -1px 0 black,
-        -1px  1px 0 black,
-        1px  1px 0 black;
-      -webkit-text-stroke: 1px solid black;
+      margin-bottom: 1rem;
+      background: linear-gradient(to right, #47f22d, #f97316);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
     }
 
     .container {
@@ -63,13 +60,7 @@
       font-weight: bold;
       margin-top: 1rem;
       display: block;
-      color: white;
-      text-shadow:
-        -1px -1px 0 black,
-        1px -1px 0 black,
-        -1px  1px 0 black,
-        1px  1px 0 black;
-      -webkit-text-stroke: 0.2px solid black;
+      color: orange;
     }
 
     input[type="number"], input[type="text"], select {
@@ -94,7 +85,7 @@
       margin-top: 20px;
       width: 100%;
       padding: 10px;
-      background: linear-gradient(to right, #4f46e5, #3b82f6);
+      background: linear-gradient(to right, #97C93C, #10b981);
       color: #fff;
       border: none;
       border-radius: 5px;
@@ -103,7 +94,8 @@
     }
 
     button:hover {
-      background: linear-gradient(to right, #3b82f6, #2563eb);
+      background: linear-gradient(to right, #f97316, #f6d365);
+      transform: scale(1.05);
     }
 
     textarea {
