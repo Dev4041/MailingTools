@@ -1,0 +1,136 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Vertical Button Page</title>
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@600&display=swap" rel="stylesheet">
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      font-family: Arial, sans-serif;
+      display: flex;
+      flex-direction: column;
+      min-height: 100vh;
+      background-image: url('like.webp');
+    }
+
+    .gradient-text {
+      font-size: 3rem;
+      font-weight: bold;
+      text-align: center;
+      padding-top: 200px;
+      color: #ffffff;
+      text-shadow: 0 0 10px black, 0 0 20px black;
+      font-family: 'Poppins', sans-serif;
+    }
+
+    .gradient-text:hover {
+      background-position: right center; /* shift gradient */
+    }
+
+    p {
+      color: white;
+      font-size: 4rem;
+      padding-top: 300px;
+      padding-bottom: 0px;
+      text-align: center;
+      
+    }
+
+    main {
+      flex: 0.3;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 0rem;
+    }
+
+    #bg-video {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100vw;
+      height: 100vh;
+      object-fit: cover;
+      z-index: -1; /* Send video to the background */
+      opacity: 1; /* Optional: darken for contrast */
+    }	
+	
+    a {
+      color: white;
+      text-decoration: none;
+      border-radius: 5px;
+      font-size: 1.1rem;
+      transition: background 0.3s ease;
+    }
+
+    a:hover {
+      background: #c00404;
+    }
+
+    button {
+      margin-top: 20px;
+      width: 100%;
+      padding: 10px;
+      background-color: #e3e1d8;
+      color: black;
+      border: 1px black;
+      border-radius: 5px;
+      font-size: 20px;
+      cursor: pointer;
+      transition: all 0.3s ease-in-out;
+      font-family: 'Poppins', sans-serif;
+    }
+    button:hover {
+      transform: scale(1.05);
+      box-shadow: 0 0 20px rgba(255, 255, 255, 0.8);
+    }
+
+    .credit {
+      position: fixed;
+      bottom: 10px;        /* Distance from bottom */
+      right: 15px;         /* Distance from right */
+      font-size: 20px;
+      font-style: italic;
+      color: white;         /* Gray text color */
+      text-shadow: 0 0 10px black, 0 0 20px black;
+      font-family: Arial, sans-serif;
+    }
+
+    .credit span {
+      font-weight: bold;
+    }
+
+  </style>
+</head>
+<body>
+
+    <p class="gradient-text">PMTA Config<br>&<br>Negative Generator</p>
+
+
+  <main>
+
+	<video autoplay muted loop playsinline id="bg-video">
+  		<source src="bg.mp4" type="video/mp4">
+	</video>
+
+    <div class="button">
+	<button onclick="window.location.href='PMTA_Config.html'">PMTA Configuration</button>
+	<button onclick="window.location.href='Random Length.html'">Random Length Chunk Generator</button>
+	<button onclick="window.location.href='Specified_Chunk_gen.html'">Specified Length Chunk Generator</button>
+    </div>
+
+  </main>
+
+  <div class="credit">
+     Created by <span>Dev</span>
+  </div>
+
+</body>
+</html>
