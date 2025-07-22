@@ -27,11 +27,12 @@
       padding-top: 200px;
       color: #ffffff;
       text-shadow: 0 0 10px black, 0 0 20px black;
+      transition: all 0.2s ease-in-out;
       font-family: 'Poppins', sans-serif;
     }
 
     .gradient-text:hover {
-      text-shadow: 0 0 20px cyan;
+      text-shadow: 0 0 20px white;
     }
 
     p {
@@ -73,18 +74,26 @@
     a:hover {
       background: #c00404;
     }
+  
+    .button {
+      display: flex;
+      flex-direction: column; /* Stack buttons vertically */
+      align-items: center;    /* Center horizontally */
+      gap: 15px;              /* Space between buttons */
+    }
 
     button {
       margin-top: 20px;
-      width: 100%;
+      width: 150%;
       padding: 10px;
-      background-color: #e3e1d8;
+      background-color: white;
       color: black;
       border: 1px black;
       border-radius: 5px;
       font-size: 20px;
       cursor: pointer;
-      transition: all 0.3s ease-in-out;
+      box-shadow: 0 0 10px black, 0 0 20px black;
+      transition: all 0.2s ease-in-out;
       font-family: 'Poppins', sans-serif;
     }
     button:hover {
@@ -96,7 +105,7 @@
       position: fixed;
       bottom: 10px;        /* Distance from bottom */
       right: 15px;         /* Distance from right */
-      font-size: 16px;
+      font-size: 20px;
       font-style: italic;
       color: white;         /* Gray text color */
       text-shadow: 0 0 10px black, 0 0 20px black;
@@ -110,9 +119,8 @@
   </style>
 </head>
 <body>
-
+   <div class="container">
     <p class="gradient-text">PMTA Config<br>&<br>Negative Generator</p>
-
 
   <main>
 
@@ -121,15 +129,16 @@
 	</video>
 
     <div class="button">
-	<button onclick="window.location.href='PMTA_Config.html'">PMTA Configuration</button>
-	<button onclick="window.location.href='Random_Length_Chunk_Generator.html'">Random Length Chunk Generator</button>
-	<button onclick="window.location.href='Fixed_Length_Chunk_Generator.html'">Fixed Length Chunk Generator</button>
+	<button onclick="window.location.href='PMTA_Config1.html'">PMTA Configuration</button>
+	<button onclick="window.location.href='Random_Length_String_Generator.html'">Random Length String Generator</button>
+	<button onclick="window.location.href='Fixed_Length_String_Generator.html'">Fixed Length String & Nouns Generator</button>
     </div>
+  </div>
 
   </main>
 
   <div class="credit">
-     Created by <span>Kailash</span>
+     Created by <span>Dev</span>
   </div>
 
 </body>
