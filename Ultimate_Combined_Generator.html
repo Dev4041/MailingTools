@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>Combined Generators</title>
+  <title>Ultimate Combined Generator</title>
   <style>
     body {
       font-family: Arial, sans-serif;
@@ -96,7 +96,7 @@
     }
     h2 {
       color: white;
-      text-shadow: 0 0 5px black;
+      text-shadow: 0 0 15px black;
       margin-top: 20px;
       font-size: 18px;
     }
@@ -120,8 +120,7 @@
       <input type="number" id="numCodes" value="50" min="1">
       <label for="codeSep">Code Separator:</label>
       <input type="text" id="codeSep" value="-">
-      <button onclick="generateCodes()">Generate Codes</button>
-<br><br><br>
+      <button onclick="generateCodes()">Generate Codes</button><br><br><br>
 
       <!-- Random Length String Generator -->
       <h2>Random Length String Generator</h2>
@@ -146,8 +145,7 @@
       </select>
       <label for="sep">String Separator:</label>
       <input type="text" id="sep" placeholder="e.g. / or - or ##__#__" />
-      <button onclick="generateStrings()">Generate Strings</button>
-<br><br><br>
+      <button onclick="generateStrings()">Generate Strings</button><br><br><br>
 
       <!-- Fixed Length & Nouns Generator -->
       <h2>Fixed Length & Nouns Generator</h2>
@@ -191,15 +189,33 @@
       return Array.from({length: len}, () => chars[Math.floor(Math.random() * chars.length)]).join('');
     }
 
-    // CODE GENERATOR
-    function generateCodes() {
-      const num = parseInt(document.getElementById('numCodes').value);
-      const sep = document.getElementById('codeSep').value || '-';
-      const result = Array.from({length: num}, () => randomString(5) + sep + randomString(28)).join('\n');
-      document.getElementById('combinedOutput').value = result;
+    // ✅ Original Random Code Generator logic preserved
+    function generateCode(separator) {
+      return randomString(5) + separator + randomString(28);
     }
 
-    // RANDOM LENGTH STRINGS
+    function generateAlternateCode(separator) {
+      return randomString(10) + separator + randomString(5) + separator + Math.floor(1000000000 + Math.random() * 9000000000);
+    }
+
+    function generateLongCode() {
+      return randomString(50);
+    }
+
+    function generateCodes() {
+      const numCodes = parseInt(document.getElementById('numCodes').value);
+      const separator = document.getElementById('codeSep').value || '-';
+      const codes = [];
+
+      for (let i = 0; i < numCodes; i++) {
+        const choice = [() => generateCode(separator), () => generateAlternateCode(separator), generateLongCode][Math.floor(Math.random() * 3)];
+        codes.push(choice());
+      }
+
+      document.getElementById('combinedOutput').value = codes.join('\n');
+    }
+
+    // ✅ Random Length Strings
     function getCharset(option) {
       switch(option){
         case 'uppercase': return 'ABCDEFGHIJKLMNOPQRSTUVWXYZ';
@@ -233,7 +249,7 @@
       document.getElementById('combinedOutput').value = output;
     }
 
-    // FIXED/NOUNS GENERATOR
+    // ✅ Fixed Length & Nouns Generator
     function generateFixed(){
       const lines = parseInt(document.getElementById('fixedLines').value);
       const lengths = document.getElementById('StringLengths').value.split(',').map(x=>parseInt(x.trim())).filter(n=>n);
@@ -247,6 +263,10 @@
           if(set==='noun'){
             const eligible=nounsList.filter(w=>w.length===lengths[j]);
             row+=eligible.length?eligible[Math.floor(Math.random()*eligible.length)]:'x'.repeat(lengths[j]);
+          } else if(set==='hex_group'){
+            const hexChars='0123456789abcdef';
+            const hexLen=Math.floor(Math.random()*(10-6+1))+6;
+            row+=Array.from({length:hexLen},()=>hexChars[Math.floor(Math.random()*hexChars.length)]).join('');
           } else {
             const chars=getCharset(set);
             row+=Array.from({length:lengths[j]},()=>chars.charAt(Math.floor(Math.random()*chars.length))).join('');
