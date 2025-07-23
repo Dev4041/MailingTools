@@ -175,6 +175,7 @@
     <div class="output-section">
       <label>Generated Output:</label>
       <textarea id="output" readonly></textarea>
+      <button onclick="copyToClipboard()">Copy Output</button>
     </div>
   </div>
 
@@ -192,6 +193,13 @@
       }).join('\n');
 
       document.getElementById('output').textContent = result;
+    }
+    function copyToClipboard() {
+      const outputArea = document.getElementById('output');
+      outputArea.select();
+      outputArea.setSelectionRange(0, 99999); // For mobile devices
+      document.execCommand('copy');
+      alert('Copied to clipboard!');
     }
   </script>
 </body>
