@@ -257,7 +257,7 @@
 
       const output = Array.from({ length: numLines }, () =>
         generateLine(StringLengths, separator, charset)
-      ).join('\n\n');
+      ).join('\n');
 
       document.getElementById('output').value = output;
     }
