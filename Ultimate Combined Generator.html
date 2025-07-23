@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>Ultimate Combined Generator</title>
+  <title>Combined Generators</title>
   <style>
     body {
       font-family: Arial, sans-serif;
@@ -19,7 +19,6 @@
       height: 100vh;
       object-fit: cover;
       z-index: -1;
-      opacity: 1;
     }
     h1 {
       text-align: center;
@@ -97,7 +96,7 @@
     }
     h2 {
       color: white;
-      text-shadow: 0 0 15px black;
+      text-shadow: 0 0 5px black;
       margin-top: 20px;
       font-size: 18px;
     }
@@ -117,10 +116,12 @@
     <div class="left">
       <!-- Random Code Generator -->
       <h2>Random Code Generator</h2>
-      <label for="numCodes">Number of Lines:</label>
-      <input type="number" id="numCodes" placeholder="e.g. 30" min="1">
+      <label for="numCodes">Number of Codes:</label>
+      <input type="number" id="numCodes" value="50" min="1">
       <label for="codeSep">Code Separator:</label>
-      <input type="text" id="codeSep" placeholder="e.g. / or - or ##__#__">
+      <input type="text" id="codeSep" value="-">
+      <button onclick="generateCodes()">Generate Codes</button>
+<br><br><br>
 
       <!-- Random Length String Generator -->
       <h2>Random Length String Generator</h2>
@@ -145,14 +146,16 @@
       </select>
       <label for="sep">String Separator:</label>
       <input type="text" id="sep" placeholder="e.g. / or - or ##__#__" />
+      <button onclick="generateStrings()">Generate Strings</button>
+<br><br><br>
 
       <!-- Fixed Length & Nouns Generator -->
       <h2>Fixed Length & Nouns Generator</h2>
-      <label for="numLines">Number of Lines:</label>
+      <label for="fixedLines">Number of Lines:</label>
       <input type="number" id="fixedLines" placeholder="e.g. 30" />
       <label for="StringLengths">String Lengths:</label>
-      <input type="text" id="StringLengths" placeholder="e.g. 8,4,3,5,12 or 65" />
-      <label for="separator">Separator:</label>
+      <input type="text" id="StringLengths" placeholder="e.g. 8,4,3,5,12" />
+      <label for="fixedSep">Separator:</label>
       <input type="text" id="fixedSep" placeholder="e.g. / or - or ##__#__" />
       <label for="charSet">Character Set:</label>
       <select id="charSet">
@@ -167,54 +170,38 @@
         <option value="hex_group">Hex Group</option>
         <option value="noun">Nouns</option>
       </select>
-
-      <button onclick="generateAll()">Generate All</button>
-      <p id="errorMsg" style="color:red;"></p>
+      <button onclick="generateFixed()">Generate Fixed/Nouns</button>
     </div>
 
     <!-- Output -->
     <div class="right">
-      <h2>Combined Output</h2>
+      <h2>Output</h2>
       <textarea id="combinedOutput" readonly></textarea>
     </div>
   </div>
 
   <script>
     let nounsList = [];
-    let nounUsageMap = new Map();
-    let currentGeneration = 1;
-
     fetch('nouns.txt')
       .then(response => response.text())
-      .then(text => {
-        nounsList = text.split('\n').map(w => w.trim()).filter(Boolean);
-      });
+      .then(text => nounsList = text.split('\n').map(w => w.trim()).filter(Boolean));
 
-    // Helper: Random String
-    function randomString(length) {
+    function randomString(len) {
       const chars = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789';
-      return Array.from({length}, () => chars.charAt(Math.floor(Math.random() * chars.length))).join('');
+      return Array.from({length: len}, () => chars[Math.floor(Math.random() * chars.length)]).join('');
     }
 
-    // === Code Generator ===
-    function generateCodes(numCodes, separator) {
-      const codes = [];
-      for (let i = 0; i < numCodes; i++) {
-        const choice = Math.floor(Math.random() * 3);
-        if (choice === 0) {
-          codes.push(randomString(5) + separator + randomString(28));
-        } else if (choice === 1) {
-          codes.push(randomString(10) + separator + randomString(5) + separator + Math.floor(1000000000 + Math.random() * 9000000000));
-        } else {
-          codes.push(randomString(50));
-        }
-      }
-      return codes.join('\n');
+    // CODE GENERATOR
+    function generateCodes() {
+      const num = parseInt(document.getElementById('numCodes').value);
+      const sep = document.getElementById('codeSep').value || '-';
+      const result = Array.from({length: num}, () => randomString(5) + sep + randomString(28)).join('\n');
+      document.getElementById('combinedOutput').value = result;
     }
 
-    // === Random Length Strings ===
+    // RANDOM LENGTH STRINGS
     function getCharset(option) {
-      switch (option) {
+      switch(option){
         case 'uppercase': return 'ABCDEFGHIJKLMNOPQRSTUVWXYZ';
         case 'lowercase': return 'abcdefghijklmnopqrstuvwxyz';
         case 'digits': return '0123456789';
@@ -225,78 +212,49 @@
         default: return '';
       }
     }
-    function generateRandomStrings(lines, strings, minLength, maxLength, separator, charset) {
-      let output = '';
-      for (let i = 0; i < lines; i++) {
-        let line = getRandomString(minLength, maxLength, charset);
-        for (let j = 1; j < strings; j++) {
-          line += separator + getRandomString(minLength, maxLength, charset);
-        }
-        output += line + '\n';
-      }
-      return output.trim();
-    }
-    function getRandomString(min, max, charset) {
-      const len = Math.floor(Math.random() * (max - min + 1)) + min;
-      return Array.from({length: len}, () => charset.charAt(Math.floor(Math.random() * charset.length))).join('');
-    }
 
-    // === Fixed Length & Nouns ===
-    function getCharsetFixed(option) {
-      if (option === 'noun') return 'noun';
-      if (option === 'hex_group') return 'hex_group';
-      return getCharset(option);
-    }
-    function generateFixedLines(count, lengthsArr, separator, charset) {
-      return Array.from({length: count}, () => {
-        if (charset === 'hex_group') {
-          return Array.from({length: 5}, () => getRandomHexGroup()).join(separator);
-        }
-        return lengthsArr.map(len => (charset === 'noun' ? getRandomNoun(len) : randomStringFromCharset(len, charset))).join(separator);
-      }).join('\n');
-    }
-    function randomStringFromCharset(length, charset) {
-      return Array.from({length}, () => charset.charAt(Math.floor(Math.random() * charset.length))).join('');
-    }
-    function getRandomHexGroup(min = 6, max = 10) {
-      const hex = '0123456789abcdef';
-      const len = Math.floor(Math.random() * (max - min + 1)) + min;
-      return Array.from({length: len}, () => hex[Math.floor(Math.random() * hex.length)]).join('');
-    }
-    function getRandomNoun(length) {
-      const eligible = nounsList.filter(w => w.length === length);
-      if (!eligible.length) return 'x'.repeat(length);
-      const word = eligible[Math.floor(Math.random() * eligible.length)];
-      nounUsageMap.set(word, currentGeneration);
-      return word;
-    }
-
-    function generateAll() {
-      const numCodes = parseInt(document.getElementById('numCodes').value);
-      const codeSep = document.getElementById('codeSep').value || '-';
+    function generateStrings() {
       const lines = parseInt(document.getElementById('lines').value);
-      const strings = parseInt(document.getElementById('Strings').value);
-      const minLength = parseInt(document.getElementById('minLength').value);
-      const maxLength = parseInt(document.getElementById('maxLength').value);
+      const count = parseInt(document.getElementById('Strings').value);
+      const min = parseInt(document.getElementById('minLength').value);
+      const max = parseInt(document.getElementById('maxLength').value);
       const sep = document.getElementById('sep').value || '';
-      const charsetOption = document.getElementById('charsetOption').value;
-      const charset = getCharset(charsetOption);
-
-      const fixedLines = parseInt(document.getElementById('fixedLines').value);
-      const lengthsInput = document.getElementById('StringLengths').value;
-      const fixedSep = document.getElementById('fixedSep').value || '';
-      const charSetFixed = getCharsetFixed(document.getElementById('charSet').value);
-      const lengthsArr = lengthsInput.split(',').map(v => parseInt(v.trim())).filter(n => n);
-
+      const charset = getCharset(document.getElementById('charsetOption').value);
+      if(!charset) return alert("Select valid charset!");
       let output = '';
-      output += '=== RANDOM CODES ===\n' + generateCodes(numCodes, codeSep) + '\n\n';
-      if (charset && !isNaN(lines)) {
-        output += '=== RANDOM STRINGS ===\n' + generateRandomStrings(lines, strings, minLength, maxLength, sep, charset) + '\n\n';
-      }
-      if (charSetFixed && !isNaN(fixedLines)) {
-        output += '=== FIXED LENGTH / NOUNS ===\n' + generateFixedLines(fixedLines, lengthsArr, fixedSep, charSetFixed);
+      for(let i=0;i<lines;i++){
+        let row = '';
+        for(let j=0;j<count;j++){
+          const len = Math.floor(Math.random()*(max-min+1))+min;
+          row += (j?sep:'') + Array.from({length:len},()=>charset.charAt(Math.floor(Math.random()*charset.length))).join('');
+        }
+        output += row+'\n';
       }
       document.getElementById('combinedOutput').value = output;
+    }
+
+    // FIXED/NOUNS GENERATOR
+    function generateFixed(){
+      const lines = parseInt(document.getElementById('fixedLines').value);
+      const lengths = document.getElementById('StringLengths').value.split(',').map(x=>parseInt(x.trim())).filter(n=>n);
+      const sep = document.getElementById('fixedSep').value||'';
+      const set = document.getElementById('charSet').value;
+      let output='';
+      for(let i=0;i<lines;i++){
+        let row = '';
+        for(let j=0;j<lengths.length;j++){
+          if(j) row+=sep;
+          if(set==='noun'){
+            const eligible=nounsList.filter(w=>w.length===lengths[j]);
+            row+=eligible.length?eligible[Math.floor(Math.random()*eligible.length)]:'x'.repeat(lengths[j]);
+          } else {
+            const chars=getCharset(set);
+            row+=Array.from({length:lengths[j]},()=>chars.charAt(Math.floor(Math.random()*chars.length))).join('');
+          }
+        }
+        output+=row+'\n';
+      }
+      document.getElementById('combinedOutput').value=output;
     }
   </script>
 </body>
